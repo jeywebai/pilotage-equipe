@@ -2176,9 +2176,15 @@ function App() {
       userSelect: "none"
     }
   }, t.label))), /*#__PURE__*/React.createElement("div", {
-    onClick: () => exportToExcel(collabs, chargeProjects, suiviProjets),
     style: {
+      display: "flex",
+      gap: "6px",
       marginBottom: "8px",
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    onClick: () => window.open(window.location.href, "_blank"),
+    style: {
       padding: "5px 12px",
       fontSize: "12px",
       fontWeight: 500,
@@ -2192,7 +2198,23 @@ function App() {
     },
     onMouseEnter: e => e.currentTarget.style.background = N.bgHover,
     onMouseLeave: e => e.currentTarget.style.background = "transparent"
-  }, "\u2B07 Exporter Excel")), tab === "charge" && /*#__PURE__*/React.createElement(ChargeEquipe, {
+  }, "\u2922 Plein \xE9cran"), /*#__PURE__*/React.createElement("div", {
+    onClick: () => exportToExcel(collabs, chargeProjects, suiviProjets),
+    style: {
+      padding: "5px 12px",
+      fontSize: "12px",
+      fontWeight: 500,
+      cursor: "pointer",
+      borderRadius: "4px",
+      border: `1px solid ${N.border}`,
+      color: N.textGray,
+      display: "flex",
+      alignItems: "center",
+      gap: "5px"
+    },
+    onMouseEnter: e => e.currentTarget.style.background = N.bgHover,
+    onMouseLeave: e => e.currentTarget.style.background = "transparent"
+  }, "\u2B07 Exporter Excel"))), tab === "charge" && /*#__PURE__*/React.createElement(ChargeEquipe, {
     collabs: collabs,
     setCollabs: setCollabs,
     suiviProjets: suiviProjets,
