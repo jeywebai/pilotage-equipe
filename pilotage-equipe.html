@@ -2095,11 +2095,39 @@ function exportToExcel(collabs, projects, suiviProjets) {
   XLSX.writeFile(wb, "pilotage-equipe.xlsx");
 }
 function App() {
-  const [collabs, setCollabs] = useState(INIT_COLLABS);
-  const [collabNid, setCollabNid] = useState(INIT_COLLABS.length + 1);
+  const load = (key, def) => {
+    try {
+      const v = localStorage.getItem(key);
+      return v ? JSON.parse(v) : def;
+    } catch (e) {
+      return def;
+    }
+  };
+  const [collabs, setCollabs] = useState(() => load("pe_collabs", INIT_COLLABS));
+  const [collabNid, setCollabNid] = useState(() => load("pe_collabNid", INIT_COLLABS.length + 1));
   const [tab, setTab] = useState("charge");
-  const [suiviProjets, setSuiviProjets] = useState([]);
-  const [chargeProjects, setChargeProjects] = useState([]);
+  const [suiviProjets, setSuiviProjets] = useState(() => load("pe_suiviProjets", []));
+  const [chargeProjects, setChargeProjects] = useState(() => load("pe_chargeProjects", []));
+  useEffect(() => {
+    try {
+      localStorage.setItem("pe_collabs", JSON.stringify(collabs));
+    } catch (e) {}
+  }, [collabs]);
+  useEffect(() => {
+    try {
+      localStorage.setItem("pe_collabNid", JSON.stringify(collabNid));
+    } catch (e) {}
+  }, [collabNid]);
+  useEffect(() => {
+    try {
+      localStorage.setItem("pe_suiviProjets", JSON.stringify(suiviProjets));
+    } catch (e) {}
+  }, [suiviProjets]);
+  useEffect(() => {
+    try {
+      localStorage.setItem("pe_chargeProjects", JSON.stringify(chargeProjects));
+    } catch (e) {}
+  }, [chargeProjects]);
   const addCollab = () => {
     setCollabs(p => [...p, {
       id: collabNid,
